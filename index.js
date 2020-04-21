@@ -27,11 +27,12 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
- * 
+ *    Counter1 is a closure
  * 2. Which of the two uses a closure? How can you tell?
- * 
+ *    Counter1, becuase it returns a function nested inside of another function
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ *    Counter 1 when you what count to be a private varibale.
+ *    Counter 2 when you want count to be a global variable
 */
 
 // counter1 code
@@ -43,7 +44,8 @@ function counterMaker() {
 }
 
 const counter1 = counterMaker();
-
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 // counter2 code
 let count = 0;
 
@@ -56,11 +58,11 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+  return Math.round(Math.random() * 2);
 }
+
+
 
 /* Task 3: finalScore()
 
@@ -75,12 +77,15 @@ finalScore(inning, 9) might return:
 }
 
 */ 
+/*
+function finalScore(times, rNg){
+  
+  let rNg2 = rNg;
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+  console.log( {"Home":(rNg * times), "Away":(rNg2 * times)} );
 }
+*/
+///////////////////////////////////////////////////////////////////////////////////
 
 /* Task 4: 
 
@@ -104,8 +109,8 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore, inning , times) {
+
 }
 
 
