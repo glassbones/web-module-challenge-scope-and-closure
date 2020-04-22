@@ -63,7 +63,6 @@ function inning(){
 }
 
 
-
 /* Task 3: finalScore()
 
 Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and and returns the final score of the game in the form of an object.
@@ -77,15 +76,37 @@ finalScore(inning, 9) might return:
 }
 
 */ 
-/*
-function finalScore(times, rNg){
-  
-  let rNg2 = rNg;
 
-  console.log( {"Home":(rNg * times), "Away":(rNg2 * times)} );
+function finalScore(times, rNG){
+
+  // store each inning score here
+  let homeArr = [];
+  let awayArr = [];
+  // store total scores here
+  let totalHome = 0;
+  let totalAway = 0;
+  // store current inning score here
+  let currentHome = 0;
+  let currentAway = 0;
+
+  //we loopin boys
+  for (let i=times; i > 0; i--){
+    // generate current inning scores
+    currentHome = rNG();
+    currentAway = rNG();
+    // push scores to array
+    homeArr.push(currentHome);
+    awayArr.push(currentAway);
+    // add current score to totals
+    totalHome+= currentHome;
+    totalAway+= currentAway;
+  }
+  //console.log(homeArr);
+  //console.log(awayArr)
+
+  return {"Home":totalHome, "Away":totalAway} 
 }
-*/
-///////////////////////////////////////////////////////////////////////////////////
+finalScore(9,inning);
 
 /* Task 4: 
 
@@ -109,8 +130,188 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(getInningScore, inning , times) {
+function getInningScore(cb, timez){
+  let obj = {}
+  //loop until timez (counting up from 0)
+  for (let i=(timez-timez); i < timez; i++)
+  { // fill object with properties describing the inning and randomly values for scores.
+    // index is 0 so + 1 and add suffix
+    obj[`${humanize(i+1)} inning`] = `${cb()} - ${cb()}`;
+  }
+  return obj ; 
+}
 
+function scoreboard(getIns, cb, timez) {
+  //generate object full of innings and scores
+  let sBoard = getIns(cb, timez);
+  //target score value in inning property
+  let scores = Object.values(sBoard);
+  // we are storing final scores in these
+  let homeTotal = 0;
+  let awayTotal = 0;
+
+   //loop until timez (counting up from 0)
+  for (let i=(timez-timez); i < timez; i++)
+  { //take first and last string character from scores string, parse int and add to totals.
+    homeTotal += parseInt(scores[i].charAt(4));
+    awayTotal += parseInt(scores[i].charAt(0));
+  }
+  // add final score
+  sBoard[`Final Score`] = `${awayTotal} - ${homeTotal}`;
+}
+
+scoreboard(getInningScore, inning, 9);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// This was my first attempt at the last question, it works but I read the question wrong lol
+/*
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+function getIn(timez, inningFunc){
+  // empty arrays for home/away scores
+  let homeArr = [];
+  let awayArr = [];
+  
+  // looping from 0 to timez
+  for (let i=(timez-timez); i <= timez; i++){
+    // generate current inning scores
+    let currentHome = inningFunc();
+    let currentAway = inningFunc();
+    // push scores to arrays
+    homeArr.push(currentHome);
+    awayArr.push(currentAway);
+  }
+  // smashing both arrays together to return all that sweet data
+  let frankenstein = homeArr.concat(awayArr);
+  return frankenstein;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+function scoreboard(cb, inningFunc , times) {
+  // getting the array returned from cb 
+  let frankenstein = cb(times, inningFunc);
+  // cloning frankenstein with homeArr and then splitting homearr into 2 arrays
+  let homeArr = [...frankenstein];
+  let awayArr = homeArr.splice(0, (homeArr.length / 2));
+  
+  // totalscores
+  let homeTotal = 0;
+  let awayTotal = 0;
+  // create scoreboard
+  let scoreboardObj = {}
+
+  //fill scoreboardObj with inning scores while adding up totals
+  homeArr.forEach(function(value, index){
+    //scoreboardObj.1st.. 2nd.. 3rd... inning :     away team score           home team score
+    scoreboardObj[`${humanize(index+1)} inning`] = (`${awayArr[index]} - ${homeArr[index]}`);
+    // add totals
+    homeTotal+= homeArr[index];
+    awayTotal+= awayArr[index];
+  });
+
+  //add final score to scoreboard 
+  scoreboardObj[`finalScore`] = `${awayTotal} - ${homeTotal}`
+  //console.log(scoreboardObj);
+  return scoreboardObj;
 }
 
 
+scoreboard(getIn, inning, 9);
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+// THIS IS NOT MY CODE
+
+function humanize(number) {
+  if(number % 100 >= 11 && number % 100 <= 13)
+      return number + "th";
+  
+  switch(number % 10) {
+      case 1: return number + "st";
+      case 2: return number + "nd";
+      case 3: return number + "rd";
+  }
+  
+  return number + "th";
+}
