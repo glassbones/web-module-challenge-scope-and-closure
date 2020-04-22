@@ -44,6 +44,9 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+
+A closure is a function relationship that allows innerfunctions to broaden their scope to that of the outer function.
+
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -65,8 +68,16 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+
+dansRoll and zoesRoll. Because they have the same function body definition but store different lexical environments.
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+
+the funtion body definition is the same everytime, as well as the name designated as a parameter. The only the that can change is the result of math.random()
+
 c. What is the lexical scope of `newRoll`? 
+
+name = "Dan";
 
 ### Task 3 - Stretch Goals
 
